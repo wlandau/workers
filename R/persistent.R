@@ -1,27 +1,52 @@
-run_future <- function(){
-  queue
-  workers <- initialize_workers(config)
-  # While any targets are queued or running...
-  while (work_remains(queue = queue, workers = workers, config = config)){
-    for (id in seq_along(workers)){
-      if (is_idle(workers[[id]])){
-        # Also calls decrease-key on the queue.
-        workers[[id]] <- conclude_worker(
-          worker = workers[[id]],
-          config = config,
+new_worker_cache <- function(workers){
+  path <- ".rsched"
+  cache <- storr::storr_rds(
+    path = path,
+    mangle_key = TRUE
+  )
+  writeLines(text = "*", con = file.path(path, ".gitignore"))
+  ids <- as.character(seq_len(workers))
+  lapply(
+    X = ids,
+    FUN = function(id){
+      cache$set(key = id, value = NA)
+    }
+  )
+  cache
+}
+
+is_idle <- function(id, cache){
+  is.na(cache$get(key = id))
+}
+
+decrease_revdep_keys <- function(id, cache, queue){
+  vertex = cache$get(key = id)
+  revdeps <- dependencies(
+    vertices = vertex,
+    graph = graph,
+    reverse = TRUE
+  ) %>%
+    intersect(y = queue$list(what = "vertices"))
+  queue$decrease_key(vertices = revdeps)
+}
+
+run <- function(graph, workers = 1){
+  queue <- new_queue(graph)
+  cache <- new_worker_cache(workers)
+  ids <- cache$list()
+  while (work_remains(cache = cache, queue = queue)){
+    for (id in ids){
+      if (is_idle(id = id, cache = cache)){
+        decrease_revdep_keys(
+          id = id,
+          cache = cache,
           queue = queue
         )
-        # Pop the head target only if its priority is 0
-        next_target <- queue$pop0(what = "names")
+        next_vertex <- pop0(queue)
         if (!length(next_target)){
-          # It's hard to make this line run in a small test workflow
-          # suitable enough for unit testing, but
-          # I did artificially stall targets and verified that this line
-          # is reached in the future::multisession backend as expected.
           next # nocov
         }
-        running <- running_targets(workers = workers, config = config)
-        protect <- c(running, queue$list(what = "names"))
+        assign_worker()
         workers[[id]] <- new_worker(
           id = id,
           target = next_target,
