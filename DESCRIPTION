@@ -1,0 +1,13 @@
+Package: rsched
+Version: 0.0.0.9000
+Title: A Platform-Agnostic Job Scheduler for R
+Description: Executes commands in parallel in the correct order.
+Authors@R: 
+License: MIT
+Encoding: UTF-8
+LazyData: true
+ByteCompile: true
+Suggests:
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
