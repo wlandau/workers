@@ -34,8 +34,5 @@ collect_job <- function(worker, cache, queue, schedule){
     return()
   }
   job <- get_job(worker = worker, cache = cache)
-  
-  cat("collecting job", job, "\n")
-  
   decrease_next_keys(job = job, queue = queue, schedule = schedule)
 }
