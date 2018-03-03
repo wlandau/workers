@@ -2,10 +2,6 @@ run_master <- function(cache, queue, schedule){
   workers <- cache$list(namespace = "status")
   while (work_remains(cache, queue)){
     for (worker in workers){
-      
-      browser()
-      print(worker)
-      
       if (is_idle(worker = worker, cache = cache)){
         collect_job(
           worker = worker,
@@ -23,7 +19,7 @@ run_master <- function(cache, queue, schedule){
 }
 
 work_remains <- function(cache, queue){
-  size(queue) > 0 || any(
+  datastructures::size(queue) > 0 || any(
     purrr::map_lgl(
       .x = cache$list(namespace = "status"),
       .f = is_running

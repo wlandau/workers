@@ -6,7 +6,7 @@
 #' @references <https://github.com/wlandau/crew>
 #' @importFrom callr r_bg
 #' @importFrom datastructures decrease_key fibonacci_heap handle insert peek
-#'   pop
+#'   pop size
 #' @importFrom magrittr %>%
 #' @importFrom igraph adjacent_vertices graph_from_data_frame V
 #' @importFrom storr storr_rds

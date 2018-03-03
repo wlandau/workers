@@ -1,7 +1,7 @@
 run_worker <- function(worker, cache, workload){
   while(!is_done(worker = worker, cache = cache)){
     if (is_idle(worker = worker, cache = cache)){
-      sleep(1e-9)
+      Sys.sleep(1e-9)
     } else {
       job <- cache$get(key = worker, namespace = "job")
       eval(workload[[job]])
