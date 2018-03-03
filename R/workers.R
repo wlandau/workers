@@ -1,13 +1,27 @@
 run_worker <- function(worker, cache, workload){
   while(!is_done(worker = worker, cache = cache)){
     if (is_idle(worker = worker, cache = cache)){
-      Sys.sleep(1e-9)
+      
+      cat("  ", 1, "idle\n")
+      
+      Sys.sleep(1e-1)
     } else {
       job <- cache$get(key = worker, namespace = "job")
+      
+      cat("  ", 1, "running", job, "\n")
+      
       eval(workload[[job]])
       set_idle(worker = worker, cache = cache)
     }
   }
+}
+
+terminate_workers <- function(cache){
+  lapply(
+    X = cache$list(namespace = "status"),
+    FUN = set_done,
+    cache = cache
+  )
 }
 
 get_job <- function(worker, cache){
