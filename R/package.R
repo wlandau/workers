@@ -10,7 +10,9 @@
 #' @importFrom magrittr %>%
 #' @importFrom igraph adjacent_vertices graph_from_data_frame V
 #' @importFrom storr storr_rds
+#' @importFrom testthat test_that
 #' @importFrom tibble as_tibble tribble
+#' @importFrom withr with_dir
 #' @examples
 #' \dontrun{
 #' withr::with_dir(tempfile(), {

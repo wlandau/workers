@@ -1,8 +1,5 @@
 run_worker <- function(worker, cache, workload){
-  while(!is_done(worker = worker, cache = cache)){
-    
-    browser()
-    
+  while (!is_done(worker = worker, cache = cache)){
     if (is_idle(worker = worker, cache = cache)){
       Sys.sleep(1e-9)
     } else {
