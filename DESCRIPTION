@@ -2,12 +2,23 @@ Package: rsched
 Version: 0.0.0.9000
 Title: A Platform-Agnostic Job Scheduler for R
 Description: Executes commands in parallel in the correct order.
-Authors@R: 
+Authors@R: c(
+  person(
+    family = "Landau",
+    given = c("William", "Michael"),
+    email = "will.landau@gmail.com",
+    role = c("aut", "cre")
+  ),
+  person(
+    family = "Eli Lilly and Company",
+    role = "cph"
+  ))
 License: MIT
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
 Suggests:
-    knitr,
-    rmarkdown
+  parallel,
+  knitr,
+  rmarkdown
 VignetteBuilder: knitr
