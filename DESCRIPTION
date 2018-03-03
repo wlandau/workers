@@ -17,10 +17,19 @@ License: MIT
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
+Imports:
+  callr,
+  datastructures,
+  igraph,
+  magrittr,
+  storr,
+  testthat,
+  tibble,
+  withr
 Suggests: 
-    parallel,
-    knitr,
-    rmarkdown,
-    testthat
+  parallel,
+  knitr,
+  rmarkdown,
+  testthat
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
