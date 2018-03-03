@@ -70,11 +70,8 @@ hire_lapply_crew <- function(
 }
 
 new_crew_cache <- function(workers){
-  path <- ".crew_workers"
-  cache <- storr::storr_rds(
-    path = path,
-    mangle_key = TRUE
-  )
+  path <- "crew_workers"
+  cache <- storr::storr_rds(path = path)
   writeLines(text = "*", con = file.path(path, ".gitignore"))
   lapply(X = as.character(seq_len(workers)), FUN = set_idle, cache = cache)
   cache
