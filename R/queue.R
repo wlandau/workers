@@ -1,10 +1,10 @@
-new_queue <- function(schedule){
+new_job_queue <- function(schedule){
   jobs <- igraph::V(schedule)$name
   priorities <- lapply(
     X = jobs,
     FUN = function(job){
       length(
-        dependencies(schedule = schedule, jobs = job, reverse = FALSE))
+        dependencies(jobs = job, schedule = schedule, reverse = FALSE))
     }
   ) %>%
     unlist %>%

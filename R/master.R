@@ -34,15 +34,3 @@ collect_job <- function(worker, cache, queue, schedule){
   job <- get_job(worker = worker, cache = cache)
   decrease_next_keys(jobs = job, queue = queue, schedule = schedule)
 }
-
-new_crew_cache <- function(n_workers){
-  path <- ".crew_workers"
-  cache <- storr::storr_rds(
-    path = path,
-    mangle_key = TRUE
-  )
-  writeLines(text = "*", con = file.path(path, ".gitignore"))
-  workers <- as.character(seq_len(n_workers))
-  lapply(X = workers, FUN = set_idle, cache = cache)
-  cache
-}
