@@ -1,6 +1,6 @@
 Package: crew
 Version: 0.0.0.9000
-Title: Coordinate an R Ensemble of Workers
+Title: Coordinated R Ensembles of Workers
 Description: Executes commands in parallel in the correct order.
 Authors@R: c(
   person(
