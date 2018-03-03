@@ -20,9 +20,9 @@ hire(
 
 # Future development
 
-### Debug persistent workers
+### Debug the persistent workers.
 
-The functionality for persistent workers is not currently working. The top priority for implementation is to debug it.
+The functionality for persistent workers is not currently working. The top priority for `crew` is to debug this.
 
 ### Transient workers
 
