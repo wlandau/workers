@@ -4,7 +4,7 @@ master <- function(queue, cache){
   monitor_workers(queue, cache)
 }
 
-initialize_workers <- fucntion(cache){
+initialize_workers <- function(cache){
   
 }
 
@@ -45,8 +45,8 @@ workers <- function(){
   # calls an apply-like function to run the workers.
 }
 
-run <- function(){
-  queue <- new_queue()
+run <- function(graph){
+  queue <- new_queue(graph)
   cache <- new_cache()
   master(queue, cache)
   workers(cache)
