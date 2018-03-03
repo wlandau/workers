@@ -26,36 +26,36 @@ pop0 <- function(queue, tol = 1e-6){
   }
 }
 
-decrease_revdep_keys <- function(queue, jobs, schedule){
-  if (!length(jobs)){
+decrease_next_keys <- function(job, queue, schedule){
+  if (!length(job)){
     return()
   }
-  revdeps <- dependencies(
+  next_jobs <- dependencies(
+    job = job,
     schedule = schedule,
-    jobs = jobs,
     reverse = TRUE
   )
   lapply(
-    X = revdeps,
+    X = next_jobs,
     FUN = decrease_single_key,
     queue = queue
   )
   invisible()
 }
 
-decrease_single_key <- function(queue, job){
+decrease_single_key <- function(job, queue){
   meta <- datastructures::handle(obj = queue, value = job)[[1]]
   datastructures::decrease_key(
     obj = queue, from = meta$key, to = meta$key - 1, handle = meta$handle)
 }
 
-dependencies <- function (schedule, jobs, reverse = FALSE){
-  if (!length(jobs)) {
+dependencies <- function (job, schedule, reverse = FALSE){
+  if (!length(job)) {
     return(character(0))
   }
   igraph::adjacent_vertices(
     graph = schedule,
-    v = jobs,
+    v = job,
     mode = ifelse(reverse, "out", "in")
   ) %>%
     lapply(FUN = names) %>%
