@@ -22,7 +22,7 @@ hire(
 
 ### Debug the persistent workers.
 
-The functionality for persistent workers is not currently working. The top priority for `crew` is to debug this.
+The functionality for persistent workers is not currently working. The master process hangs, and the workers wait indefinitely for the master to post jobs. The top priority for `crew` is to debug this.
 
 ### Transient workers
 
