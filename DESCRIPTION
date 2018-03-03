@@ -17,9 +17,10 @@ License: MIT
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
-Suggests:
-  parallel,
-  knitr,
-  rmarkdown
+Suggests: 
+    parallel,
+    knitr,
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1

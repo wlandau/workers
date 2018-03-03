@@ -4,18 +4,22 @@
 #' @aliases crew
 #' @author William Michael Landau \email{will.landau@@gmail.com}
 #' @references <https://github.com/wlandau/crew>
+#' @importFrom callr r_bg
+#' @importFrom datastructures decrease_key fibonacci_heap handle insert peek
+#'   pop
 #' @importFrom magrittr %>%
-#' @import callr datastructures igraph magrittr storr tibble
+#' @importFrom igraph adjacent_vertices graph_from_data_frame V
+#' @importFrom storr storr_rds
+#' @importFrom tibble as_tibble tribble
 #' @examples
 #' \dontrun{
 #' withr::with_dir(tempfile(), {
-#' attach(example_args()) # Get an example workload and schedule.
 #' # Run all the jobs in the workload in the
 #' # correct order given in the schedule.
 #' # Use 2 persistent workers.
 #' hire(
-#'   workload = workload,
-#'   schedule = schedule,
+#'   workload = workload = example_workload(),
+#'   schedule = schedule = example_schedule(),
 #'   fun = parallel::mclapply,
 #'   workers = 2,
 #'   mc.cores = 2

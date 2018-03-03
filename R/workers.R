@@ -22,15 +22,15 @@ has_job <- function(worker, cache){
   cache$exists(key = worker, namespace = "job")
 }
 
-is_done <- function(woirker, cache){
+is_done <- function(worker, cache){
   identical("done", get_status(worker = worker, cache = cache))
 }
 
-is_idle <- function(woirker, cache){
+is_idle <- function(worker, cache){
   identical("idle", get_status(worker = worker, cache = cache))
 }
 
-is_running <- function(woirker, cache){
+is_running <- function(worker, cache){
   identical("running", get_status(worker = worker, cache = cache))
 }
 

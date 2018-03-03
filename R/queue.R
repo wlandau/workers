@@ -4,7 +4,7 @@ new_job_queue <- function(schedule){
     X = jobs,
     FUN = function(job){
       length(
-        dependencies(jobs = job, schedule = schedule, reverse = FALSE))
+        dependencies(job = job, schedule = schedule, reverse = FALSE))
     }
   ) %>%
     unlist %>%

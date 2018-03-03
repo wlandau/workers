@@ -1,6 +1,7 @@
 #' @title Hire a crew of R workers.
 #' @description Hire a crew of R workers.
 #' @export
+#' @seealso [example_workload()], [example_schedule()]
 #' @return nothing
 #' @param workload named list of jobs.
 #'   The names are job IDs and the values are expressions or language objects.
@@ -14,13 +15,12 @@
 #' @examples
 #' \dontrun{
 #' withr::with_dir(tempfile(), {
-#' attach(example_args()) # Get an example workload and schedule.
 #' # Run all the jobs in the workload in the
 #' # correct order given in the schedule.
 #' # Use 2 persistent workers.
 #' hire(
-#'   workload = workload,
-#'   schedule = schedule,
+#'   workload = workload = example_workload(),
+#'   schedule = schedule = example_schedule(),
 #'   fun = parallel::mclapply,
 #'   workers = 2,
 #'   mc.cores = 2

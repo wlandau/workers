@@ -30,17 +30,19 @@ Hire a crew of R workers.
 \examples{
 \dontrun{
 withr::with_dir(tempfile(), {
-attach(example_args()) # Get an example workload and schedule.
 # Run all the jobs in the workload in the
 # correct order given in the schedule.
 # Use 2 persistent workers.
 hire(
-  workload = workload,
-  schedule = schedule,
+  workload = workload = example_workload(),
+  schedule = schedule = example_schedule(),
   fun = parallel::mclapply,
   workers = 2,
   mc.cores = 2
 )
 })
 }
+}
+\seealso{
+[example_workload()], [example_schedule()]
 }
