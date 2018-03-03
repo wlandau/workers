@@ -5,5 +5,5 @@
 #' @author William Michael Landau \email{will.landau@@gmail.com}
 #' @references <https://github.com/wlandau/crew>
 #' @importFrom magrittr %>%
-#' @import datastructures igraph magrittr storr
+#' @import callr datastructures igraph magrittr storr tibble
 NULL

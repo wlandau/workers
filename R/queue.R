@@ -1,17 +1,17 @@
-new_queue <- function(graph){
-  vertices <- igraph::V(graph)$name
+new_queue <- function(schedule){
+  jobs <- igraph::V(schedule)$name
   priorities <- lapply(
-    X = vertices,
-    FUN = function(vertex){
+    X = jobs,
+    FUN = function(job){
       length(
-        dependencies(graph = graph, vertices = vertex, reverse = FALSE))
+        dependencies(schedule = schedule, jobs = job, reverse = FALSE))
     }
   ) %>%
     unlist %>%
     as.numeric
   stopifnot(any(priorities < 1)) # Stop if nothing has ready deps.
   queue <- datastructures::fibonacci_heap("numeric", "character")
-  datastructures::insert(obj = queue, x = priorities, y = vertices)
+  datastructures::insert(obj = queue, x = priorities, y = jobs)
 }
 
 # Pop only if the element has priority 0
@@ -26,13 +26,13 @@ pop0 <- function(queue, tol = 1e-6){
   }
 }
 
-decrease_revdep_keys <- function(vertices, graph, queue){
-  if (!length(vertices)){
+decrease_revdep_keys <- function(queue, jobs, schedule){
+  if (!length(jobs)){
     return()
   }
   revdeps <- dependencies(
-    graph = graph,
-    vertices = vertices,
+    schedule = schedule,
+    jobs = jobs,
     reverse = TRUE
   )
   lapply(
@@ -40,21 +40,22 @@ decrease_revdep_keys <- function(vertices, graph, queue){
     FUN = decrease_single_key,
     queue = queue
   )
+  invisible()
 }
 
-decrease_single_key <- function(queue, vertex){
-  meta <- datastructures::handle(obj = queue, value = vertex)[[1]]
+decrease_single_key <- function(queue, job){
+  meta <- datastructures::handle(obj = queue, value = job)[[1]]
   datastructures::decrease_key(
     obj = queue, from = meta$key, to = meta$key - 1, handle = meta$handle)
 }
 
-dependencies <- function (graph, vertices, reverse = FALSE){
-  if (!length(vertices)) {
+dependencies <- function (schedule, jobs, reverse = FALSE){
+  if (!length(jobs)) {
     return(character(0))
   }
   igraph::adjacent_vertices(
-    graph = graph,
-    v = vertices,
+    graph = schedule,
+    v = jobs,
     mode = ifelse(reverse, "out", "in")
   ) %>%
     lapply(FUN = names) %>%
