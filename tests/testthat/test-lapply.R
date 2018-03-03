@@ -1,5 +1,6 @@
 context("test-lapply.R")
 
 test_that("hire(type = \"lapply\") works", {
-  args <- example_args()
+  workload <- example_workload()
+  schedule <- example_schedule()
 })
