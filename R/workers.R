@@ -1,9 +1,12 @@
 run_worker <- function(worker, cache, workload){
   while(!is_done(worker = worker, cache = cache)){
+    
+    browser()
+    
     if (is_idle(worker = worker, cache = cache)){
       Sys.sleep(1e-9)
     } else {
-      job <- cache$get(key = worker, namespace = "job")
+      job <- get_job(cache = cache, worker = worker)
       eval(workload[[job]])
       set_idle(worker = worker, cache = cache)
     }
