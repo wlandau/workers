@@ -1,10 +1,9 @@
-#' rsched is a job scheduler for R.
+#' crew is a job scheduler for R.
 #' @docType package
-#' @name rsched-package
-#' @aliases rsched
+#' @name crew-package
+#' @aliases crew
 #' @author William Michael Landau \email{will.landau@@gmail.com}
-#' @examples
-#' @references <https://github.com/wlandau/rsched>
+#' @references <https://github.com/wlandau/crew>
 #' @importFrom magrittr %>%
-#' @import datastructures igraph
+#' @import datastructures igraph magrittr storr
 NULL
