@@ -1,6 +1,6 @@
-Package: rsched
+Package: crew
 Version: 0.0.0.9000
-Title: A Platform-Agnostic Job Scheduler for R
+Title: Coordinate an R Ensemble of Workers
 Description: Executes commands in parallel in the correct order.
 Authors@R: c(
   person(

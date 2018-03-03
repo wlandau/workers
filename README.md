@@ -1,2 +1,3 @@
-# rsched
-A platform-agnostic job scheduler for R
+# crew
+
+Coordinate an R Ensemble of Workers
