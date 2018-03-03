@@ -7,6 +7,12 @@
 #'   The names are job IDs and the values are expressions or language objects.
 #' @param schedule an `igraph` object linking the job IDs together.
 #'   This is how `crew` knows how to execute some jobs before other jobs.
+#' @param workers number of parallel workers to spawn in the crew.
+#'   If `type` is `"lapply"` (default), you may need to pass other arguments
+#'   to `...` to ensure the workers actually run in parallel. For example,
+#'   if `fun` is `parallel::mclapply`, then you should set `mc.cores`
+#'   to the number of workers. For `fun` equal to `lapply` (default),
+#'   no parallelism is possible no matter how many `workers` you request.
 #' @param type character scalar naming the type of crew to hire.
 #'   Currently, `"lapply"` is the only crew type.
 #' @param fun an `lapply`-like function to use for persistent workers
@@ -21,7 +27,7 @@
 #' hire(
 #'   workload = workload = example_workload(),
 #'   schedule = schedule = example_schedule(),
-#'   fun = parallel::mclapply,
+#'   fun = lapply,
 #'   workers = 2,
 #'   mc.cores = 2
 #' )

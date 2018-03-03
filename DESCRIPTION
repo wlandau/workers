@@ -1,5 +1,6 @@
 Package: crew
 Version: 0.0.0.9000
+License: MIT + file LICENSE
 Title: Coordinated R Ensembles of Workers
 Description: Executes commands in parallel in the correct order.
 Authors@R: c(
@@ -13,15 +14,12 @@ Authors@R: c(
     family = "Eli Lilly and Company",
     role = "cph"
   ))
-License: MIT
-Encoding: UTF-8
-LazyData: true
-ByteCompile: true
 Imports:
   callr,
   datastructures,
   igraph,
   magrittr,
+  purrr,
   storr,
   testthat,
   tibble,
@@ -29,7 +27,9 @@ Imports:
 Suggests: 
   parallel,
   knitr,
-  rmarkdown,
-  testthat
+  rmarkdown
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
+Encoding: UTF-8
+LazyData: true
+ByteCompile: true

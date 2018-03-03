@@ -13,6 +13,13 @@ The names are job IDs and the values are expressions or language objects.}
 \item{schedule}{an `igraph` object linking the job IDs together.
 This is how `crew` knows how to execute some jobs before other jobs.}
 
+\item{workers}{number of parallel workers to spawn in the crew.
+If `type` is `"lapply"` (default), you may need to pass other arguments
+to `...` to ensure the workers actually run in parallel. For example,
+if `fun` is `parallel::mclapply`, then you should set `mc.cores`
+to the number of workers. For `fun` equal to `lapply` (default),
+no parallelism is possible no matter how many `workers` you request.}
+
 \item{type}{character scalar naming the type of crew to hire.
 Currently, `"lapply"` is the only crew type.}
 
@@ -36,7 +43,7 @@ withr::with_dir(tempfile(), {
 hire(
   workload = workload = example_workload(),
   schedule = schedule = example_schedule(),
-  fun = parallel::mclapply,
+  fun = lapply,
   workers = 2,
   mc.cores = 2
 )

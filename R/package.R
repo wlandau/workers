@@ -8,6 +8,7 @@
 #' @importFrom datastructures decrease_key fibonacci_heap handle insert peek
 #'   pop size
 #' @importFrom magrittr %>%
+#' @importFrom purrr map_lgl
 #' @importFrom igraph adjacent_vertices graph_from_data_frame V
 #' @importFrom storr storr_rds
 #' @importFrom testthat test_that

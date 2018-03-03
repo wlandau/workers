@@ -46,3 +46,4 @@ vignettes/.*_files
 ^_pkgdown\.yml$
 ^\.travis\.yml$
 ^appveyor\.yml$
+^LICENSE\.md$
