@@ -2,13 +2,7 @@ run_master <- function(cache, queue, schedule){
   workers <- cache$list(namespace = "status")
   while (work_remains(cache, queue)){
     for (worker in workers){
-      
-      cat("master is checking worker", worker, "\n")
-      
       if (is_idle(worker = worker, cache = cache)){
-        
-        cat("master says", worker, "idle\n")
-        
         collect_job(
           worker = worker,
           cache = cache,
@@ -16,19 +10,11 @@ run_master <- function(cache, queue, schedule){
           schedule = schedule
         )
         next_job <- pop0(queue)
-        
-        cat("next job", next_job, "\n")
-        
         set_job(worker = worker, job = next_job, cache = cache)
-        
-        cat("set next job", next_job, "\n")
-        
         set_running(worker = worker, cache = cache)
-        
-        cat(worker, "should be running.\n")
       }
     }
-    Sys.sleep(1e-1)
+    Sys.sleep(1e-9)
   }
   terminate_workers(cache = cache)
 }
