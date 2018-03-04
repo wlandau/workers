@@ -1,7 +1,9 @@
 Package: crew
+Title: Coordinated R Ensembles of Workers
 Version: 0.0.0.9000
 License: MIT + file LICENSE
-Title: Coordinated R Ensembles of Workers
+URL: https://github.com/wlandau/crew
+BugReports: https://github.com/wlandau/crew/issues
 Description: Executes commands in parallel in the correct order.
 Authors@R: c(
   person(

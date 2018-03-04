@@ -74,13 +74,9 @@ hire(
 Future development
 ==================
 
-### Debug the persistent workers.
-
-The functionality for persistent workers is not currently working. The master process hangs, and the workers wait indefinitely for the master to post jobs. The top priority for `crew` is to debug this.
-
 ### Transient workers
 
-Why would we want one transient worker per job? Because persistent workers can time out. In other words, your computing cluster may impose time limits on long-running workers spawned by `hire(..., fun = future.apply::future_lapply)`.
+Why would we want one transient worker per job? Because the currently-supported persistent workers can time out. In other words, your computing cluster may impose time limits on long-running workers spawned by `hire(..., fun = future.apply::future_lapply)`.
 
 ### Semi-transient workers
 
