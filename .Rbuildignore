@@ -10,6 +10,7 @@ Thumbs.db
 \.gitignore$
 \.Rapp.history$
 \.RData$
+\.rds$
 \.Rbuildignore$
 \.Rhistory$
 \.lintr$

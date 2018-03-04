@@ -1,6 +1,5 @@
 inst/doc
 *~
 .Rproj.user
-report.html
-report.md
-report.Rmd
+*.rds
+README.html

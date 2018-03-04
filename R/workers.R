@@ -3,61 +3,52 @@ run_worker <- function(worker, cache, workload){
     if (is_idle(worker = worker, cache = cache)){
       Sys.sleep(1e-9)
     } else {
-      job <- get_job(cache = cache, worker = worker)
-      eval(workload[[job]])
+      job <- get_job(worker = worker, cache = cache)
+      if (length(job)){
+        eval(workload[[job]])
+      }
       set_idle(worker = worker, cache = cache)
     }
   }
 }
 
-terminate_workers <- function(cache){
-  lapply(
-    X = cache$list(namespace = "status"),
-    FUN = set_done,
-    cache = cache
-  )
+worker_ids <- function(workers){
+  as.character(seq_len(workers)) 
 }
 
 get_job <- function(worker, cache){
   cache$get(key = worker, namespace = "job")
 }
 
-get_status <- function(worker, cache){
-  cache$get(key = worker, namespace = "status")
+set_job <- function(worker, job, cache){
+  cache$set(key = worker, value = job, namespace = "job")
 }
 
 has_job <- function(worker, cache){
   cache$exists(key = worker, namespace = "job")
 }
 
-is_done <- function(worker, cache){
-  identical("done", get_status(worker = worker, cache = cache))
-}
-
-is_idle <- function(worker, cache){
-  identical("idle", get_status(worker = worker, cache = cache))
-}
-
 is_running <- function(worker, cache){
-  identical("running", get_status(worker = worker, cache = cache))
-}
-
-set_done <- function(worker, cache){
-  set_status(worker = worker, status = "done", cache = cache)
-}
-
-set_idle <- function(worker, cache){
-  set_status(worker = worker, status = "idle", cache = cache)
-}
-
-set_job <- function(worker, job, cache){
-  cache$set(key = worker, value = job, namespace = "job")
+  cache$exists(key = worker, namespace = "running")
 }
 
 set_running <- function(worker, cache){
-  set_status(worker = worker, status = "running", cache = cache)
+  cache$set(key = worker, value = TRUE, namespace = "running")
 }
 
-set_status <- function(worker, status, cache){
-  cache$set(key = worker, value = status, namespace = "status")
+is_done <- function(worker, cache){
+  cache$exists(key = worker, namespace = "done")
+}
+
+set_done <- function(worker, cache){
+  cache$set(key = worker, value = TRUE, namespace = "done")
+}
+
+is_idle <- function(worker, cache){
+  !is_running(worker = worker, cache = cache) &&
+  !is_done(worker = worker, cache = cache)
+}
+
+set_idle <- function(worker, cache){
+  cache$del(key = worker, namespace = "running")
 }

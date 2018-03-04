@@ -7,11 +7,10 @@
 #' @return nothing
 #' @param cache a `storr` cache to communicate with the workers
 #' @param schedule an `igraph` of job dependencies
-run_master <- function(cache, schedule){
+run_master <- function(workers, cache, schedule){
   queue <- new_job_queue(schedule = schedule)
-  workers <- cache$list(namespace = "status")
-  while (work_remains(cache = cache, queue = queue)){
-    for (worker in workers){
+  while (work_remains(workers = workers, cache = cache, queue = queue)){
+    for (worker in worker_ids(workers)){
       if (is_idle(worker = worker, cache = cache)){
         collect_job(
           worker = worker,
@@ -20,20 +19,23 @@ run_master <- function(cache, schedule){
           schedule = schedule
         )
         next_job <- pop0(queue)
-        set_job(worker = worker, job = next_job, cache = cache)
-        set_running(worker = worker, cache = cache)
+        if (length(next_job)){
+          set_job(worker = worker, job = next_job, cache = cache)
+          set_running(worker = worker, cache = cache)
+        } else {
+          set_done(worker = worker, cache = cache)
+        }
       }
     }
     Sys.sleep(1e-9)
   }
-  terminate_workers(cache = cache)
 }
 
-work_remains <- function(cache, queue){
-  datastructures::size(queue) > 0 || any(
+work_remains <- function(workers, cache, queue){
+  datastructures::size(queue) > 0 || !all(
     purrr::map_lgl(
-      .x = cache$list(namespace = "status"),
-      .f = is_running,
+      .x = worker_ids(workers),
+      .f = is_done,
       cache = cache
     )
   )

@@ -16,6 +16,9 @@ new_job_queue <- function(schedule){
 
 # Pop only if the element has priority 0
 pop0 <- function(queue, tol = 1e-6){
+  if (size(queue) < 1){
+    return()
+  }
   top_value <- unlist(datastructures::peek(queue), use.names = FALSE)
   top_meta <- datastructures::handle(queue, value = top_value)[[1]]
   top_key <- top_meta$key

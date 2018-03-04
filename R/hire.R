@@ -92,16 +92,16 @@ hire_lapply <- function(
 ){
   workload <- parse_workload(workload)
   schedule <- parse_schedule(schedule)
-  cache <- new_crew_cache(workers = workers)
-  args <- list(cache = cache, schedule = schedule)
+  cache <- new_crew_cache()
+  args <- list(workers = workers, cache = cache, schedule = schedule)
   rx <- callr::r_bg(
-    func = function(cache, schedule){
-      crew::run_master(cache = cache, schedule = schedule)
+    func = function(workers, cache, schedule){
+      crew::run_master(workers = workers, cache = cache, schedule = schedule)
     },
     args = args
   )
   fun(
-    X = cache$list(namespace = "status"),
+    X = worker_ids(workers),
     FUN = run_worker,
     cache = cache,
     workload = workload,
@@ -110,10 +110,12 @@ hire_lapply <- function(
   cache$destroy()
 }
 
-new_crew_cache <- function(workers){
-  path <- tempfile()
+new_crew_cache <- function(){
+  path <- "~/Downloads/crew" # tempfile()
   cache <- storr::storr_rds(path = path)
+  for (namespace in cache$list_namespaces()){
+    cache$clear(namespace = namespace)
+  }
   writeLines(text = "*", con = file.path(path, ".gitignore"))
-  lapply(X = as.character(seq_len(workers)), FUN = set_idle, cache = cache)
   cache
 }

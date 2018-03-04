@@ -4,7 +4,7 @@
 \alias{run_master}
 \title{Internal function to run the master process}
 \usage{
-run_master(cache, schedule)
+run_master(workers, cache, schedule)
 }
 \arguments{
 \item{cache}{a `storr` cache to communicate with the workers}
