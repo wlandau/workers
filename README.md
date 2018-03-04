@@ -1,19 +1,19 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-![stability-wip](https://img.shields.io/badge/stability-work_in_progress-lightgrey.svg) ![stability-experimental](https://img.shields.io/badge/stability-experimental-orange.svg) ![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg) <br> [![Travis build status](https://travis-ci.org/wlandau/crew.svg?branch=master)](https://travis-ci.org/wlandau/crew) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github//wlandau/crew/?branch=master&svg=true)](https://ci.appveyor.com/project/wlandau/crew) [![Codecov](https://codecov.io/github/wlandau/crew/coverage.svg?branch=master)](https://codecov.io/github/wlandau/crew?branch=master) [![CRAN](http://www.r-pkg.org/badges/version/crew)](http://cran.r-project.org/package=crew) [![downloads](http://cranlogs.r-pkg.org/badges/crew)](http://cran.rstudio.com/package=crew)
+![stability-wip](https://img.shields.io/badge/stability-work_in_progress-lightgrey.svg) ![stability-experimental](https://img.shields.io/badge/stability-experimental-orange.svg) ![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg) <br> [![Travis build status](https://travis-ci.org/wlandau/workers.svg?branch=master)](https://travis-ci.org/wlandau/workers) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github//wlandau/workers/?branch=master&svg=true)](https://ci.appveyor.com/project/wlandau/workers) [![Codecov](https://codecov.io/github/wlandau/workers/coverage.svg?branch=master)](https://codecov.io/github/wlandau/workers?branch=master) [![CRAN](http://www.r-pkg.org/badges/version/workers)](http://cran.r-project.org/package=workers) [![downloads](http://cranlogs.r-pkg.org/badges/workers)](http://cran.rstudio.com/package=workers)
 
-Coordinated R Ensembles of Workers
-==================================
+Workers for R
+=============
 
-The `crew` package is a job scheduler for R. It launches a crew of workers do a bunch of jobs together.
+The `workers` package is a job scheduler for R. It launches groups coordinated of workers do a bunch of jobs together. Some jobs may need to finish before others start, and the workers know how to handle it.
 
 Installation
 ============
 
-`Crew` is a work in progress, and it is currently only available from GitHub.
+`Workers` is a work in progress, and it is currently only available from GitHub.
 
 ``` r
-devtools::install_github("wlandau/crew")
+devtools::install_github("wlandau/workers")
 ```
 
 Usage
@@ -22,7 +22,7 @@ Usage
 Your workload is a collection of commands named with job IDs.
 
 ``` r
-library(crew)
+library(workers)
 workload <- example_workload()
 workload
 #> # A tibble: 8 x 2
@@ -43,7 +43,7 @@ workload$command[1:2]
 #> saveRDS(data.frame(x = rnorm(64), y = rnorm(64)), "large.rds")
 ```
 
-Some jobs depend the output from other jobs, so `crew` needs a schedule of job IDs.
+Some jobs depend the output from other jobs, so `workers` needs a schedule of job IDs.
 
 ``` r
 schedule <- example_schedule()
@@ -59,7 +59,7 @@ schedule
 #> # ... with 1 more row
 ```
 
-To run your work, just hire a crew of persistent workers.
+To run your work, just hire a team of persistent workers.
 
 ``` r
 hire(

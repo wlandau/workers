@@ -31,7 +31,7 @@ The `workers` package is a job scheduler for R. It launches groups coordinated o
 
 # Installation
 
-`Crew` is a work in progress, and it is currently only available from GitHub.
+`Workers` is a work in progress, and it is currently only available from GitHub.
 
 ```{r install, eval = FALSE}
 devtools::install_github("wlandau/workers")
@@ -56,7 +56,7 @@ schedule <- example_schedule()
 schedule
 ```
 
-To run your work, just hire a crew of persistent workers.
+To run your work, just hire a team of persistent workers.
 
 ```{r hire, eval = FALSE}
 hire(
