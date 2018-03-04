@@ -13,7 +13,7 @@ run_worker <- function(worker, cache, workload){
 }
 
 worker_ids <- function(workers){
-  as.character(seq_len(workers)) 
+  as.character(seq_len(workers))
 }
 
 get_job <- function(worker, cache){

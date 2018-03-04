@@ -96,7 +96,9 @@ hire_lapply <- function(
   args <- list(workers = workers, cache = cache, schedule = schedule)
   rx <- callr::r_bg(
     func = function(workers, cache, schedule){
-      crew::run_master(workers = workers, cache = cache, schedule = schedule)
+      # Probably not covered because of the callr process.
+      # Definitely run though.
+      crew::run_master(workers = workers, cache = cache, schedule = schedule) # nocov # nolint
     },
     args = args
   )
@@ -108,14 +110,4 @@ hire_lapply <- function(
     ...
   )
   cache$destroy()
-}
-
-new_crew_cache <- function(){
-  path <- "~/Downloads/crew" # tempfile()
-  cache <- storr::storr_rds(path = path)
-  for (namespace in cache$list_namespaces()){
-    cache$clear(namespace = namespace)
-  }
-  writeLines(text = "*", con = file.path(path, ".gitignore"))
-  cache
 }
