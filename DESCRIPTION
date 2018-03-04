@@ -19,7 +19,7 @@ Authors@R: c(
 Imports:
   callr,
   datastructures,
-  igraph
+  igraph,
   magrittr,
   purrr,
   storr,
