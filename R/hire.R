@@ -72,7 +72,7 @@ hire <- function(
 ){
   type <- match.arg(type)
   if (type == "lapply"){
-    hire_lapply_crew(
+    hire_lapply(
       workload = workload,
       schedule = schedule,
       workers = workers,
@@ -83,7 +83,7 @@ hire <- function(
   invisible()
 }
 
-hire_lapply_crew <- function(
+hire_lapply <- function(
   workload,
   schedule,
   workers = 1,
@@ -93,9 +93,13 @@ hire_lapply_crew <- function(
   workload <- parse_workload(workload)
   schedule <- parse_schedule(schedule)
   cache <- new_crew_cache(workers = workers)
-  queue <- new_job_queue(schedule = schedule)
-  args <- list(cache = cache, queue = queue, schedule = schedule)
-  callr::r_bg(func = run_master, args = args)
+  args <- list(cache = cache, schedule = schedule)
+  rx <- callr::r_bg(
+    func = function(cache, schedule){
+      crew::run_master(cache = cache, schedule = schedule)
+    },
+    args = args
+  )
   fun(
     X = cache$list(namespace = "status"),
     FUN = run_worker,

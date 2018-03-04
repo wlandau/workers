@@ -3,6 +3,7 @@
 export(example_schedule)
 export(example_workload)
 export(hire)
+export(run_master)
 importFrom(callr,r_bg)
 importFrom(datastructures,decrease_key)
 importFrom(datastructures,fibonacci_heap)

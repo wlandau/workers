@@ -1,4 +1,14 @@
-run_master <- function(cache, queue, schedule){
+#' @title Internal function to run the master process
+#' @description Do not call this function directly.
+#'   It is only exported to make available to `callr::r_bg()`.
+#'   It is not an interface function. The API is unstable.
+#' @export
+#' @keywords internal
+#' @return nothing
+#' @param cache a `storr` cache to communicate with the workers
+#' @param schedule an `igraph` of job dependencies
+run_master <- function(cache, schedule){
+  queue <- new_job_queue(schedule = schedule)
   workers <- cache$list(namespace = "status")
   while (work_remains(cache = cache, queue = queue)){
     for (worker in workers){
