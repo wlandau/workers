@@ -1,7 +1,6 @@
 Package: crew
 Title: Coordinated R Ensembles of Workers
 Version: 0.0.0.9000
-License: GPL-3
 URL: https://github.com/wlandau/crew
 BugReports: https://github.com/wlandau/crew/issues
 Description: Executes commands in parallel in the correct order.
@@ -34,6 +33,6 @@ Remotes:
   dirmeier/datastructures
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
-Encoding: UTF-8
 LazyData: true
 ByteCompile: true
+License: MIT + file LICENSE
