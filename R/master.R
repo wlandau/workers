@@ -1,6 +1,6 @@
 run_master <- function(cache, queue, schedule){
   workers <- cache$list(namespace = "status")
-  while (work_remains(cache, queue)){
+  while (work_remains(cache = cache, queue = queue)){
     for (worker in workers){
       if (is_idle(worker = worker, cache = cache)){
         collect_job(

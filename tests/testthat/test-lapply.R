@@ -1,4 +1,4 @@
-context("test-lapply.R")
+context("lapply")
 
 test_with_dir("hire(type = \"lapply\") works", {
   workload <- example_workload()

@@ -3,10 +3,39 @@
 #' @export
 #' @seealso [example_workload()], [example_schedule()]
 #' @return nothing
-#' @param workload named list of jobs.
-#'   The names are job IDs and the values are expressions or language objects.
-#' @param schedule an `igraph` object linking the job IDs together.
-#'   This is how `crew` knows how to execute some jobs before other jobs.
+#' @param workload the job IDs and commands to run them.
+#'   Possible options for input format:
+#'   1. `tibble`: You can supply a `tibble` or `data.frame`
+#'   with columns `job` (for the job ID) and `command`
+#'   (for the R command to run). Job IDs are characters, and
+#'   commands are language objects or expressions.
+#'   (You can make a language object with `quote()`.)
+#'   Example: `example_workload(format = "tibble")`.
+#'   2. `environment`: Ultimately, any `tibble`
+#'   and `data.frame` inputs are converted
+#'   into `environment` objects, with the job IDs as names
+#'   and commands (language objects) as value.
+#'   Ultimately, job commands are much faster to look up this way.
+#'   Example: `example_workload(format = "environment")`.
+#' @param schedule a schedule of job IDs with all the
+#'   relevant jobs represented.
+#'  `crew` looks at the `schedule` to learn
+#'  the order in which jobs can be executed.
+#'   Possible options for input format:
+#'   1. `tibble`: You can supply a `tibble` with columns `from` and `to`.
+#'    For example, in `example_schedule(format = "tibble")`,
+#'   the top row tells us that the job named `small` must complete before
+#'   the job `regression_small` can begin. For isolated jobs
+#'   (with no dependencies and nothing downstream)
+#'   just include rows where `from` and `to` are the same.
+#'   Example: `example_schedule(format = "tibble")`.
+#'   2. `igraph`: Ultimately, any `tibble`
+#'   and `data.frame` inputs are converted
+#'   into `igraph` objects, which are faster
+#'   to work with. But the conversion could take time for large schedules.
+#'   For the sake of speed, you may want to supply the `igraph`
+#'   directly to [hire()].
+#'   Example: `example_schedule(format = "igraph")`.
 #' @param workers number of parallel workers to spawn in the crew.
 #'   If `type` is `"lapply"` (default), you may need to pass other arguments
 #'   to `...` to ensure the workers actually run in parallel. For example,
@@ -61,6 +90,8 @@ hire_lapply_crew <- function(
   fun = lapply,
   ...
 ){
+  workload <- parse_workload(workload)
+  schedule <- parse_schedule(schedule)
   cache <- new_crew_cache(workers = workers)
   queue <- new_job_queue(schedule = schedule)
   args <- list(cache = cache, queue = queue, schedule = schedule)
