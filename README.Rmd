@@ -25,7 +25,7 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 [![CRAN](http://www.r-pkg.org/badges/version/workers)](http://cran.r-project.org/package=workers) [![downloads](http://cranlogs.r-pkg.org/badges/workers)](http://cran.rstudio.com/package=workers)
 
 
-# Workers for R
+# Teams of Persistent Workers in R
 
 The `workers` package is a job scheduler for R. It launches groups coordinated of workers do a bunch of jobs together. Some jobs may need to finish before others start, and the workers know how to handle it.
 
