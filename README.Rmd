@@ -22,7 +22,7 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 [![Travis build status](https://travis-ci.org/wlandau/crew.svg?branch=master)](https://travis-ci.org/wlandau/crew)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github//wlandau/crew/?branch=master&svg=true)](https://ci.appveyor.com/project/wlandau/crew)
 [![Codecov](https://codecov.io/github/wlandau/crew/coverage.svg?branch=master)](https://codecov.io/github/wlandau/crew?branch=master)
-[![CRAN](http://www.r-pkg.org/badges/version/crew)](http://cran.r-project.org/package=crew) | [![downloads](http://cranlogs.r-pkg.org/badges/crew)](http://cran.rstudio.com/package=crew)
+[![CRAN](http://www.r-pkg.org/badges/version/crew)](http://cran.r-project.org/package=crew) [![downloads](http://cranlogs.r-pkg.org/badges/crew)](http://cran.rstudio.com/package=crew)
 
 
 # Coordinated R Ensembles of Workers
