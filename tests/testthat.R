@@ -1,4 +1,4 @@
 library(testthat)
-library(crew)
+library(workers)
 
-test_check("crew")
+test_check("workers")

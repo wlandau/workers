@@ -1,9 +1,9 @@
-#' crew is a job scheduler for R.
+#' workers is a job scheduler for R.
 #' @docType package
-#' @name crew-package
-#' @aliases crew
+#' @name workers-package
+#' @aliases workers
 #' @author William Michael Landau \email{will.landau@@gmail.com}
-#' @references <https://github.com/wlandau/crew>
+#' @references <https://github.com/wlandau/workers>
 #' @importFrom callr r_bg
 #' @importFrom datastructures decrease_key fibonacci_heap handle insert peek
 #'   pop size

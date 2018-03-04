@@ -1,4 +1,4 @@
-new_crew_cache <- function(){
+new_workers_cache <- function(){
   path <- tempfile()
   cache <- storr::storr_rds(path = path)
   for (namespace in cache$list_namespaces()){
