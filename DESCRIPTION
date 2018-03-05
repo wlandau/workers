@@ -17,7 +17,7 @@ Authors@R: c(
   ))
 Imports:
   callr,
-  datastructures (>= 0.2.2),
+  datastructures,
   igraph,
   magrittr,
   purrr,
