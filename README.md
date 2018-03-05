@@ -1,6 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-![stability-wip](https://img.shields.io/badge/stability-work_in_progress-lightgrey.svg) ![stability-experimental](https://img.shields.io/badge/stability-experimental-orange.svg) ![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg) <br> [![Travis build status](https://travis-ci.org/wlandau/workers.svg?branch=master)](https://travis-ci.org/wlandau/workers) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github//wlandau/workers/?branch=master&svg=true)](https://ci.appveyor.com/project/wlandau/workers) [![Codecov](https://codecov.io/github/wlandau/workers/coverage.svg?branch=master)](https://codecov.io/github/wlandau/workers?branch=master) [![CRAN](http://www.r-pkg.org/badges/version/workers)](http://cran.r-project.org/package=workers) [![downloads](http://cranlogs.r-pkg.org/badges/workers)](http://cran.rstudio.com/package=workers)
+![stability-wip](https://img.shields.io/badge/stability-work_in_progress-lightgrey.svg)
+
+[![Travis build status](https://travis-ci.org/wlandau/workers.svg?branch=master)](https://travis-ci.org/wlandau/workers) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github//wlandau/workers/?branch=master&svg=true)](https://ci.appveyor.com/project/wlandau/workers) [![Codecov](https://codecov.io/github/wlandau/workers/coverage.svg?branch=master)](https://codecov.io/github/wlandau/workers?branch=master) [![CRAN](http://www.r-pkg.org/badges/version/workers)](http://cran.r-project.org/package=workers) [![downloads](http://cranlogs.r-pkg.org/badges/workers)](http://cran.rstudio.com/package=workers)
 
 Teams of Persistent Workers in R
 ================================
@@ -65,9 +67,25 @@ To run your work, just hire a team of persistent workers.
 hire(
   workload = workload,
   schedule = schedule,
-  fun = parallel::mclapply,      # `lapply()`-like function to launch persistent workers
+  fun = parallel::mclapply,      # for Windows users, parallel::parLapply
   workers = 2,                   # number of persistent workers
   mc.cores = 2                   # arguments to the `lapply()`-like function
+)
+```
+
+To deploy your workers to a high-performance computing system such as a [SLURM](https://slurm.schedmd.com/) cluster, use the `future_lapply()` function from the [`future.apply` package](https://github.com/HenrikBengtsson/future.apply) and supply the appropriate [`batchtools`](https://github.com/mllg/batchtools) [template file](https://github.com/mllg/batchtools/tree/master/inst/templates).
+
+``` r
+plan(
+  batchtools_slurm,
+  template = "slurm-simple.tmpl", # You supply this file.
+  workers = 4
+)
+hire(
+  workload = workload,
+  schedule = schedule,
+  fun = future.apply::future_lapply,
+  workers = 4
 )
 ```
 
