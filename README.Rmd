@@ -82,12 +82,6 @@ hire(
 )
 ```
 
-# Future development
+# Ongoing development
 
-### Transient workers
-
-Why would we want one transient worker per job? Because the currently-supported persistent workers can time out. In other words, your computing cluster may impose time limits on long-running workers spawned by `hire(..., fun = future.apply::future_lapply)`.
-
-### Semi-transient workers
-
-It takes a lot of overhead to launch a transient worker for every single job. We will eventually want to distribute groups of jobs among the workers using one of the [knapsack problems](https://en.wikipedia.org/wiki/List_of_knapsack_problems).
+The `workers` package is early in its proof-of-concept phase of development. Ideas and plans are discussed in the [issue tracker](https://github.com/wlandau/workers/issues) and outlined in the  [design specification](https://github.com/wlandau/workers/tree/master/specification).
