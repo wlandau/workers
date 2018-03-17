@@ -30,9 +30,6 @@ If we use `lapply`-like functions to create persistent workers in the scheduler,
 - Reduce the overhead of initializing workloads, especially in the case of `mclapply`.
 - Leverage the wealth of popular R-focused parallel computing tools already in common use. There are already so many parallel `lapply`-like functions, such as `mclapply`, `parLapply`, and `future_lapply`. We achieve platform-independence and exceptional flexibility.
 
-### Semi-transient `future`-based workers
+### Transient `future`-based workers
 
-Why are persistent workers not enough?
-
-1. Because they run for a long time, moving from job to job until there are no jobs left. If we deploy to high-performance computing systems such as university clusters, workers may run too long and time out. 
-2. Becuase the implementation of persistent workers will require the workers to have access to the local file system. Workers that deploy to cloud services may not have such access.
+Transient workers should run one or more jobs and then exit after reaching a quota. This option is important because long-running persistent workers may clash with wall time limits on HPC systems.
