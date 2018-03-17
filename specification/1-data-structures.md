@@ -55,8 +55,12 @@ Each worker has a queue containing the jobs assigned to it. Internally, each wor
 
 #### Master
 
-As jobs become available, the master process deploys them by posting to the queues of the least busy workers. In the early days of the `workers` package, the master may just look for the workers with the fewest running or queued jobs. But eventually, we will move to a sophisticated load-balancing scheme, possibly a variant of the [knapsack problem](https://en.wikipedia.org/wiki/Knapsack_problem).
+As jobs become available, the master process deploys them by posting to the queues of the least busy workers. In the early days of the `workers` package, the master may just look for the workers with the fewest running or queued jobs. But eventually, we will move to a sophisticated load-balancing scheme, possibly a variant of the [knapsack problem](https://en.wikipedia.org/wiki/Knapsack_problem). When there are no more jobs to assign, the master publishes a "done" message to the workers to tell them to exit when all the jobs already in the worker queue are complete.
 
 #### Individual workers
 
 Each individual worker waits for its next job using `liteq::consume()`, looks up the command in the workload, and does the work. If the command completes successfully, the worker calls `liteq::ack()` to remove the job listing from the worker queue. There are many options to choose from when it comes to failed jobs. `liteq::nack()` may play a role here if we decide to let the master process reallocate failed jobs to different workers.
+
+## Cleanup queue
+
+The cleanup queue is also a [`liteq`](https://github.com/r-lib/liteq) queue. Workers post each finished job to the cleanup queue to alert the master process. The master peridically checks the cleanup queue and, for each completed job, decreases the key (in the priority queue) of all the jobs directly downstream.
