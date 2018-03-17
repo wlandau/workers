@@ -1,5 +1,6 @@
 ---
 title: "The purpose of the `workers` package"
+author: "Will Landau"
 output: html_document
 ---
 
