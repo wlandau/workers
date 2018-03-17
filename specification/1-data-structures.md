@@ -33,7 +33,7 @@ Transient workers will be lanuched using `future`.
 
 ## Master
 
-The master is the process that governs and coordinates the workers, assigning them the right jobs at the right times. At the implementation level, it is a background [`callr::r_bg()`](https://github.com/r-lib/callr) process.
+The master is the process that governs and coordinates the workers, assigning them the right jobs at the right times. At the implementation level, it is either a background [`callr::r_bg()`](https://github.com/r-lib/callr) process (for persistent workers) or just the user's R session (for transient workers).
 
 # User input
 

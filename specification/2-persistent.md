@@ -53,13 +53,16 @@ output: html_document
 
 #### Initialize
 
+Retrieve the worker queue using `liteq::ensure_queue()`.
+
 #### Repeat
 
 1. Check the worker queue using `liteq::consume()`.
 2. If the result is a job,
     - Look up the command in the workload.
     - Execute the command.
-3. Otherwise, if the result is a "done" message, move on to cleanup.
+    - Call `liteq::ack()` to remove the job from the worker queue. (For failed jobs, we may want to add nuance with `liteq::nack()`.)
+3. Otherwise, if the result is a "done" message, call `liteq::ack()` to remove it and move on to cleanup.
 
 #### Cleanup
 
