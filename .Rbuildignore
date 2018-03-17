@@ -11,7 +11,11 @@ Thumbs.db
 \.Rbuildignore$
 \.Rhistory$
 \.lintr$
+<<<<<<< HEAD
 \.specification$
+=======
+\.Rproj$
+>>>>>>> 45c72a93eb809c870d5a0229ac818d1d7c743f73
 CONTRIBUTING.md
 CONTRIBUTING.html
 LICENSE

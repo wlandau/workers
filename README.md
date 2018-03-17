@@ -5,7 +5,7 @@
 Teams of Persistent Workers in R
 ================================
 
-The `workers` package is a job scheduler for R. It launches groups coordinated of workers do a bunch of jobs together. Some jobs may need to finish before others start, and the workers know how to handle it.
+The `workers` package is a job scheduler for R. It launches groups coordinated of workers, and the workers run your jobs in the correct order.
 
 Installation
 ============
