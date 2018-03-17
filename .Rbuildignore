@@ -11,6 +11,7 @@ Thumbs.db
 \.Rbuildignore$
 \.Rhistory$
 \.lintr$
+\.specification$
 CONTRIBUTING.md
 CONTRIBUTING.html
 LICENSE
