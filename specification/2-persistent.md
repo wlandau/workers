@@ -1,5 +1,5 @@
 ---
-title: "Data structures and terminology"
+title: "Execution of persistent workers"
 author: "Will Landau"
 date: "March 17, 2018"
 output: html_document
@@ -35,7 +35,7 @@ output: html_document
 2. Process the cleanup queue. While `liteq::try_consume()` returns a completed job,
     - Decrease the key (in the priority queue) of all jobs directly downstream.
     - Call `ack()` to remove the finished job from the cleanup queue.
-3. Search the worker queues for failed jobs using `liteq::try_consume()`, push them to the priority queue, and decrease the keys to zero. The newly-pushed failed jobs should be behind the other jobs with priority zero.
+3. Optionally, search the worker queues for failed jobs using `liteq::try_consume()`, push them to the priority queue, and decrease the keys to zero. The newly-pushed failed jobs should be behind the other jobs with priority zero. Eventually, we may want to make this part more nuanced with job-level retries and timeouts.
 4. If there is a job with priority zero in the priority queue,
     - Pop the job from the priority queue.
     - Find the least busy worker.

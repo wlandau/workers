@@ -16,7 +16,20 @@ A job is a piece of work to do. Each job has
 
 ## Worker
 
-A worker is a unit of execution that runs one or more jobs. It could be an process forked by `mclapply()` or `callr::r_bg()`, a [`future`](https://github.com/HenrikBengtsson/future), or some other process or thread. Workers may be persistent or semi-transient, and semi-transient workers may not have access to the local file system.
+A worker is a unit of execution that runs one or more jobs. It could be an process forked by `mclapply()` or `callr::r_bg()`, a [`future`](https://github.com/HenrikBengtsson/future), or some other process or thread. Workers may be persistent or transient.
+
+#### Persistent workers
+
+A persistent worker runs until there are no jobs left. For `workers`, we will assume each worker has access to the local file system. We will deploy persistent workers with a user-specified `lapply`-like function such as `mclapply` or `future_lapply`.
+
+#### Transient workers
+
+A transient worker runs one or more jobs. The purpose of transient workers is to provide an option that
+
+1. Avoids timeouts for long-running jobs on HPC systems, and
+2. Does not require workers to be able to access the user's local file system.
+
+Transient workers will be lanuched using `future`.
 
 ## Master
 
