@@ -11,7 +11,6 @@ Thumbs.db
 \.Rbuildignore$
 \.Rhistory$
 \.lintr$
-\.specification$
 \.Rproj$
 CONTRIBUTING.md
 CONTRIBUTING.html
@@ -22,6 +21,7 @@ paper.md
 README.Rmd
 README.md
 README.html
+specification
 vignettes/.*\.html
 vignettes/.*\.md
 vignettes/.*\.log
