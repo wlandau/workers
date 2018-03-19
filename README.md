@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-![stability-wip](https://img.shields.io/badge/stability-work_in_progress-lightgrey.svg) [![Travis build status](https://travis-ci.org/wlandau/workers.svg?branch=master)](https://travis-ci.org/wlandau/workers) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github//wlandau/workers/?branch=master&svg=true)](https://ci.appveyor.com/project/wlandau/workers) [![Codecov](https://codecov.io/github/wlandau/workers/coverage.svg?branch=master)](https://codecov.io/github/wlandau/workers?branch=master) [![CRAN](http://www.r-pkg.org/badges/version/workers)](http://cran.r-project.org/package=workers) [![downloads](http://cranlogs.r-pkg.org/badges/workers)](http://cran.rstudio.com/package=workers)
+![stability-wip](https://img.shields.io/badge/stability-work_in_progress-lightgrey.svg) [![Travis build status](https://travis-ci.org/wlandau/workers.svg?branch=master)](https://travis-ci.org/wlandau/workers) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/wlandau/workers?branch=master&svg=true)](https://ci.appveyor.com/project/wlandau/workers) [![Codecov](https://codecov.io/github/wlandau/workers/coverage.svg?branch=master)](https://codecov.io/github/wlandau/workers?branch=master) [![CRAN](http://www.r-pkg.org/badges/version/workers)](http://cran.r-project.org/package=workers) [![downloads](http://cranlogs.r-pkg.org/badges/workers)](http://cran.rstudio.com/package=workers)
 
 Teams of Persistent Workers in R
 ================================
