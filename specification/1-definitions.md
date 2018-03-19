@@ -1,5 +1,5 @@
 ---
-title: "Data structures and terminology"
+title: "Definitions and data structures"
 author: "Will Landau"
 date: "March 17, 2018"
 output: html_document
