@@ -24,9 +24,9 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 [![Codecov](https://codecov.io/github/wlandau/workers/coverage.svg?branch=master)](https://codecov.io/github/wlandau/workers?branch=master)
 
 
-# Teams of Persistent Workers in R
+# Crews of Workers in R
 
-The `workers` package is a job scheduler for R. It launches groups coordinated of workers, and the workers run your jobs in the correct order.
+The `workers` package is a job scheduler for R. It launches groups coordinated of workers, and the workers run your jobs in parallel and in the correct order.
 
 # Installation
 
