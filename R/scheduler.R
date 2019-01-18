@@ -33,6 +33,10 @@ launch_code <- function(queue, workers, code) {
 
 resolve_worker <- function(id, graph, queue, workers) {
   if (future::resolved(workers[[id]])) {
+    # TODO: Process this value, it will contain
+    # graph updates
+    future::resolve(workers[[id]])
+
     rm(list = id, envir = workers)
     decrease_revdep_keys(queue, graph, id)
   }
