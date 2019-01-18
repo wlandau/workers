@@ -8,22 +8,6 @@
 \description{
 workers is a job scheduler for R.
 }
-\examples{
-\dontrun{
-withr::with_dir(tempfile(), {
-# Run all the jobs in the workload in the
-# correct order given in the schedule.
-# Use 2 persistent workers.
-hire(
-  workload = workload = example_workload(),
-  schedule = schedule = example_schedule(),
-  fun = parallel::mclapply,
-  workers = 2,
-  mc.cores = 2
-)
-})
-}
-}
 \references{
 <https://github.com/wlandau/workers>
 }

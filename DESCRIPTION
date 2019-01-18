@@ -16,22 +16,14 @@ Authors@R: c(
     role = "cph"
   ))
 Imports:
-  callr,
-  datastructures,
-  igraph,
-  magrittr,
-  purrr,
-  storr,
-  testthat,
-  tibble,
-  withr
+  clustermq,
+  igraph
 Suggests: 
   knitr,
-  rmarkdown
-Remotes:
-  dirmeier/datastructures
+  rmarkdown,
+  testthat
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 LazyData: true
 ByteCompile: true
 License: MIT + file LICENSE
