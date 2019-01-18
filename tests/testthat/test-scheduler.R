@@ -41,8 +41,6 @@ test_that("linear graph", {
 })
 
 test_that("linear graph, reversed", {
-  skip("WTF")
-
   x <- 1
   code <- list(
     a = function() { x <<- x * 2; success() },
@@ -53,7 +51,7 @@ test_that("linear graph, reversed", {
   edges <- tibble::tibble(from = "a", to = "b")
   graph <- igraph::graph_from_data_frame(edges, vertices = vertices)
 
-  schedule(graph[2:1])
+  schedule(graph)
   expect_equal(x, 3)
 })
 
