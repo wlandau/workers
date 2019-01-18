@@ -24,3 +24,16 @@ test_that("uncomplicated graph", {
 
   schedule(graph, code)
 })
+
+test_that("uncomplicated graph, reversed", {
+  code <- map(rlang::set_names(letters[1:4]), function(x) function() warning(x))
+
+  edges <- data.frame(
+    from = c("a", "a", "b", "c"),
+    to = c("b", "c", "d", "d"),
+    stringsAsFactors = FALSE
+  )
+  graph <- igraph::graph_from_data_frame(edges[4:1, ])
+
+  schedule(graph, code[4:1])
+})
