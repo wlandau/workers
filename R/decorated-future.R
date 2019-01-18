@@ -20,3 +20,8 @@ resolve.DecoratedFuture <- function(x, ...) {
   future::resolve(x$inner)
   x$post()
 }
+
+#' @export
+resolve.dDecoratedFuture <- function(x, ...) {
+  future::resolved(x$inner)
+}
