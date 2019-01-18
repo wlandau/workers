@@ -16,7 +16,6 @@ Authors@R: c(
     role = "cph"
   ))
 Imports:
-  clustermq,
   igraph
 Suggests: 
   knitr,
