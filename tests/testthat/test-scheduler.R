@@ -19,7 +19,7 @@ test_that("one-vertex graph", {
 
 
 test_that("linear graph", {
-  x <- 0
+  x <- 1
   code <- list(
     a = function() { x <<- x * 2; success() },
     b = function() { x <<- x + 1; success() }
@@ -29,11 +29,11 @@ test_that("linear graph", {
   graph <- igraph::graph_from_data_frame(edges)
 
   schedule(graph, code)
-  expect_equal(x, 1)
+  expect_equal(x, 3)
 })
 
 test_that("linear graph, reversed", {
-  x <- 0
+  x <- 1
   code <- list(
     a = function() { x <<- x * 2; success() },
     b = function() { x <<- x + 1; success() }
@@ -43,7 +43,7 @@ test_that("linear graph, reversed", {
   graph <- igraph::graph_from_data_frame(edges)
 
   schedule(graph, code[2:1])
-  expect_equal(x, 1)
+  expect_equal(x, 3)
 })
 
 test_that("diamond graph", {
