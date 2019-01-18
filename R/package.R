@@ -4,5 +4,5 @@
 #' @aliases workers
 #' @author William Michael Landau \email{will.landau@@gmail.com}
 #' @references <https://github.com/wlandau/workers>
-#' @import igraph
+#' @import igraph rlang
 NULL

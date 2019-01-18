@@ -16,11 +16,13 @@ Authors@R: c(
     role = "cph"
   ))
 Imports:
-  igraph
+  igraph,
+  rlang
 Suggests: 
   knitr,
   rmarkdown,
-  testthat
+  testthat,
+  tibble
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 LazyData: true
