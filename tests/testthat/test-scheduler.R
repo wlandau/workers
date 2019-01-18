@@ -1,7 +1,9 @@
 context("test-scheduler")
 
 test_that("empty graph", {
+  code <- list()
   graph <- igraph::make_empty_graph()
+  expect_error(schedule(graph, code = list()), NA)
 })
 
 test_that("one-vertex graph", {
@@ -12,28 +14,80 @@ test_that("one-vertex graph", {
 })
 
 
-test_that("uncomplicated graph", {
-  code <- map(rlang::set_names(letters[1:4]), function(x) function() warning(x))
-
-  edges <- data.frame(
-    from = c("a", "a", "b", "c"),
-    to = c("b", "c", "d", "d"),
-    stringsAsFactors = FALSE
+test_that("linear graph", {
+  x <- 0
+  code <- list(
+    a = function() x <<- x * 2,
+    b = function() x <<- x + 1
   )
+
+  edges <- tibble::tibble(from = "a", to = "b")
   graph <- igraph::graph_from_data_frame(edges)
 
   schedule(graph, code)
+  expect_equal(x, 1)
 })
 
-test_that("uncomplicated graph, reversed", {
-  code <- map(rlang::set_names(letters[1:4]), function(x) function() warning(x))
+test_that("linear graph, reversed", {
+  x <- 0
+  code <- list(
+    a = function() x <<- x * 2,
+    b = function() x <<- x + 1
+  )
 
-  edges <- data.frame(
+  edges <- tibble::tibble(from = "a", to = "b")
+  graph <- igraph::graph_from_data_frame(edges)
+
+  schedule(graph, code[2:1])
+  expect_equal(x, 1)
+})
+
+test_that("diamond graph", {
+  x <- NULL
+  y <- NULL
+  z <- NULL
+  w <- NULL
+  code <- list(
+    a = function() x <<- 2,
+    b = function() y <<- x + 1,
+    c = function() z <<- x * 2,
+    d = function() w <<- 3 * y + z
+  )
+
+  edges <- tibble::tibble(
     from = c("a", "a", "b", "c"),
-    to = c("b", "c", "d", "d"),
-    stringsAsFactors = FALSE
+    to = c("b", "c", "d", "d")
+  )
+  graph <- igraph::graph_from_data_frame(edges)
+  schedule(graph, code)
+
+  expect_equal(x, 2)
+  expect_equal(y, 3)
+  expect_equal(z, 4)
+  expect_equal(w, 13)
+})
+
+test_that("diamond graph, reversed", {
+  x <- NULL
+  y <- NULL
+  z <- NULL
+  w <- NULL
+  code <- list(
+    a = function() x <<- 2,
+    b = function() y <<- x + 1,
+    c = function() z <<- x * 2,
+    d = function() w <<- 3 * y + z
+  )
+
+  edges <- tibble::tibble(
+    from = c("a", "a", "b", "c"),
+    to = c("b", "c", "d", "d")
   )
   graph <- igraph::graph_from_data_frame(edges[4:1, ])
-
   schedule(graph, code[4:1])
+
+  expect_equal(x, 2)
+  expect_equal(y, 3)
+  expect_equal(z, 4)
+  expect_equal(w, 13)
 })
