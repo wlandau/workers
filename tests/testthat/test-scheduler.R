@@ -46,6 +46,21 @@ test_that("linear graph, reversed", {
   expect_equal(x, 3)
 })
 
+test_that("linear graph, delayed", {
+  x <- 1
+  delayed_future <- future.callr::callr({ Sys.sleep(1); list(success = TRUE) })
+  code <- list(
+    a = function() { delayed_future },
+    b = function() { if (future::resolved(delayed_future)) x <<- x + 1; success() }
+  )
+
+  edges <- tibble::tibble(from = "a", to = "b")
+  graph <- igraph::graph_from_data_frame(edges)
+
+  schedule(graph, code)
+  expect_equal(x, 2)
+})
+
 test_that("diamond graph", {
   x <- NULL
   y <- NULL
