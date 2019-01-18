@@ -1,5 +1,9 @@
 context("test-scheduler")
 
+success <- function() {
+  future::future(list(success = TRUE))
+}
+
 test_that("empty graph", {
   code <- list()
   graph <- igraph::make_empty_graph()
@@ -17,8 +21,8 @@ test_that("one-vertex graph", {
 test_that("linear graph", {
   x <- 0
   code <- list(
-    a = function() x <<- x * 2,
-    b = function() x <<- x + 1
+    a = function() { x <<- x * 2; success() },
+    b = function() { x <<- x + 1; success() }
   )
 
   edges <- tibble::tibble(from = "a", to = "b")
@@ -31,8 +35,8 @@ test_that("linear graph", {
 test_that("linear graph, reversed", {
   x <- 0
   code <- list(
-    a = function() x <<- x * 2,
-    b = function() x <<- x + 1
+    a = function() { x <<- x * 2; success() },
+    b = function() { x <<- x + 1; success() }
   )
 
   edges <- tibble::tibble(from = "a", to = "b")
@@ -48,10 +52,10 @@ test_that("diamond graph", {
   z <- NULL
   w <- NULL
   code <- list(
-    a = function() x <<- 2,
-    b = function() y <<- x + 1,
-    c = function() z <<- x * 2,
-    d = function() w <<- 3 * y + z
+    a = function() { x <<- 2; success() },
+    b = function() { y <<- x + 1; success() },
+    c = function() { z <<- x * 2; success() },
+    d = function() { w <<- 3 * y + z; success() }
   )
 
   edges <- tibble::tibble(
@@ -73,10 +77,10 @@ test_that("diamond graph, reversed", {
   z <- NULL
   w <- NULL
   code <- list(
-    a = function() x <<- 2,
-    b = function() y <<- x + 1,
-    c = function() z <<- x * 2,
-    d = function() w <<- 3 * y + z
+    a = function() { x <<- 2; success() },
+    b = function() { y <<- x + 1; success() },
+    c = function() { z <<- x * 2; success() },
+    d = function() { w <<- 3 * y + z; success() }
   )
 
   edges <- tibble::tibble(
