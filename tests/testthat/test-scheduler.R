@@ -47,6 +47,8 @@ test_that("linear graph, reversed", {
 })
 
 test_that("linear graph, delayed", {
+  skip("NYI")
+
   x <- 1
   delayed_future <- future.callr::callr({ Sys.sleep(1); list(success = TRUE) })
   code <- list(
