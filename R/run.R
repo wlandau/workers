@@ -2,6 +2,6 @@
 #' @export
 schedule <- function(graph) {
   code <- igraph::vertex.attributes(graph)$code
-  map(code, rlang::eval_tidy)
+  map(code, rlang::call2)
   invisible()
 }
