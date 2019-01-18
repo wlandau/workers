@@ -4,10 +4,12 @@
 \alias{schedule}
 \title{Run jobs in topological order}
 \usage{
-schedule(graph)
+schedule(graph, code)
 }
 \arguments{
 \item{graph}{TBD}
+
+\item{code}{TBD}
 }
 \description{
 Run jobs in topological order
