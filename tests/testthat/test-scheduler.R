@@ -4,10 +4,13 @@ test_that("empty graph", {
   graph <- igraph::make_empty_graph()
 })
 
-test_that("empty graph", {
+test_that("one-vertex graph", {
   graph <- igraph::make_empty_graph() + igraph::vertices("x")
-  schedule(graph, list(x = function() warning()))
+  envir <- new.env(parent = emptyenv())
+  schedule(graph, list(x = function() envir$x <- TRUE))
+  expect_true(envir$x)
 })
+
 
 test_that("uncomplicated graph", {
   code <- map(rlang::set_names(letters[1:4]), function(x) function() warning(x))
