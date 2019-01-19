@@ -10,7 +10,7 @@ output:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "inst/img/README-"
 )
 options(tibble.print_min = 5, tibble.print_max = 5)
 ```
@@ -23,14 +23,11 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/wlandau/workers?branch=master&svg=true)](https://ci.appveyor.com/project/wlandau/workers)
 [![Codecov](https://codecov.io/github/wlandau/workers/coverage.svg?branch=master)](https://codecov.io/github/wlandau/workers?branch=master)
 
+# Purpose
 
-# Crews of Workers in R
-
-The `workers` package is a job scheduler for R. It launches groups coordinated of workers, and the workers run your jobs in parallel and in the correct order.
+The `workers` package is a platform-agnostic R-focused parallel job scheduler. For computationally-demanding workflows, schedulers are important. Some tasks need to complete before others start (for example, the data munging steps that precede analysis) and `workers` takes advantages of parallel computing opportunities while saving you the trouble of figuring out what needs to run when.
 
 # Installation
-
-`Workers` is a work in progress, and it is currently only available from GitHub.
 
 ```{r install, eval = FALSE}
 devtools::install_github("wlandau/workers")
@@ -38,51 +35,42 @@ devtools::install_github("wlandau/workers")
 
 # Usage
 
-Your workload is a collection of commands named with job IDs.
+Represent your workflow as a dependency graph with functions as attributes. Each function is a step in the pipeline.
 
-```{r workload, message = FALSE}
-library(workers)
-workload <- example_workload()
-workload
-
-workload$command[1:2]
+```{r use}
+success <- function() {
+  future::future(list(success = TRUE))
+}
+code <- list(
+  a = function() {
+    x <<- 2
+    success()
+  },
+  b = function() {
+    y <<- x + 1
+    success()
+  },
+  c = function() {
+    z <<- x * 2
+    success()
+  },
+  d = function() {
+    w <<- 3 * y + z
+    success()
+  }
+)
+vertices <- tibble::tibble(name = letters[1:4], code)
+edges <- tibble::tibble(
+  from = c("a", "a", "b", "c"),
+  to = c("b", "c", "d", "d")
+)
+graph <- igraph::graph_from_data_frame(edges, vertices = vertices)
+plot(graph)
 ```
 
-Some jobs depend the output from other jobs, so `workers` needs a schedule of job IDs.
+Then, run your workflow with `schedule(graph)`.
 
 ```{r schedule}
-schedule <- example_schedule()
-schedule
+library(workers)
+schedule(graph)
 ```
-
-To run your work, just hire a team of persistent workers. 
-
-```{r hire, eval = FALSE}
-hire(
-  workload = workload,
-  schedule = schedule,
-  fun = parallel::mclapply,      # for Windows users, parallel::parLapply
-  workers = 2,                   # number of persistent workers
-  mc.cores = 2                   # arguments to the `lapply()`-like function
-)
-```
-
-To deploy your workers to a high-performance computing system such as a [SLURM](https://slurm.schedmd.com/) cluster, use the `future_lapply()` function from the [`future.apply` package](https://github.com/HenrikBengtsson/future.apply) and supply the appropriate [`batchtools`](https://github.com/mllg/batchtools) [template file](https://github.com/mllg/batchtools/tree/master/inst/templates).
-
-```{r hire2, eval = FALSE}
-plan(
-  batchtools_slurm,
-  template = "slurm-simple.tmpl", # You supply this file.
-  workers = 4
-)
-hire(
-  workload = workload,
-  schedule = schedule,
-  fun = future.apply::future_lapply,
-  workers = 4
-)
-```
-
-# Ongoing development
-
-The `workers` package is early in its proof-of-concept phase of development. Ideas and plans are discussed in the [issue tracker](https://github.com/wlandau/workers/issues) and outlined in the  [design specification](https://github.com/wlandau/workers/tree/master/specification).

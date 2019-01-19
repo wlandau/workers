@@ -1,37 +1,37 @@
 Package: workers
 Title: Coordinated R Ensembles of Workers
 Version: 0.0.0.9000
+Authors@R: 
+    c(person(given = c("William", "Michael"),
+             family = "Landau",
+             role = c("aut", "cre"),
+             email = "will.landau@gmail.com"),
+      person(given = "Kirill",
+             family = "Müller",
+             role = "aut",
+             email = "krlmlr+r@mailbox.org"),
+      person(family = "Eli Lilly and Company",
+             role = "cph"))
+Description: Executes commands in the correct order, leveraging
+    the future package to support asynchronous and parallel operation.
+License: MIT + file LICENSE
 URL: https://github.com/wlandau/workers
 BugReports: https://github.com/wlandau/workers/issues
-Description: Executes commands in parallel in the correct order.
-Authors@R: c(
-  person(
-    family = "Landau",
-    given = c("William", "Michael"),
-    email = "will.landau@gmail.com",
-    role = c("aut", "cre")
-  ),
-  person(
-    family = "Eli Lilly and Company",
-    role = "cph"
-  ))
 Imports:
-  callr,
-  datastructures,
-  igraph,
-  magrittr,
-  purrr,
-  storr,
-  testthat,
-  tibble,
-  withr
-Suggests: 
-  knitr,
-  rmarkdown
-Remotes:
-  dirmeier/datastructures
-VignetteBuilder: knitr
-RoxygenNote: 6.0.1
-LazyData: true
+    future,
+    igraph,
+    methods,
+    rlang
+Suggests:
+    future.callr,
+    knitr,
+    rmarkdown,
+    testthat,
+    tibble
+VignetteBuilder: 
+    knitr
 ByteCompile: true
-License: MIT + file LICENSE
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+RoxygenNote: 6.1.1
