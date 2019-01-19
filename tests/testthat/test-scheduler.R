@@ -72,11 +72,18 @@ test_that("linear graph, reversed", {
 
 test_that("linear graph, delayed", {
   x <- 1
-  delayed_future <- future.callr::callr({ Sys.sleep(1); list(success = TRUE) })
+  delayed_future <- future.callr::callr({
+    Sys.sleep(1)
+    list(success = TRUE)
+  })
   decorated_future <- decorated_future(delayed_future, post = function() { x <<- x + 2 })
   code <- list(
-    a = function() { decorated_future },
-    b = function() { x <<- x * 3; success() }
+    a = function() {
+      decorated_future
+    },
+    b = function() {
+      x <<- x * 3; success()
+    }
   )
 
   vertices <- tibble::tibble(name = letters[1:2], code)
