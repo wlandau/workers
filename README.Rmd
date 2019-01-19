@@ -10,7 +10,7 @@ output:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "inst/img/README-"
 )
 options(tibble.print_min = 5, tibble.print_max = 5)
 ```

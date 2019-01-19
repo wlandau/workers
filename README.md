@@ -61,7 +61,7 @@ graph <- igraph::graph_from_data_frame(edges, vertices = vertices)
 plot(graph)
 ```
 
-![](README-use-1.png)<!-- -->
+![](inst/img/README-use-1.png)<!-- -->
 
 Then, run your workflow with `schedule(graph)`.
 
