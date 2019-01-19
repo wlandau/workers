@@ -22,7 +22,8 @@ Imports:
     igraph,
     methods,
     rlang
-Suggests: 
+Suggests:
+    future.callr,
     knitr,
     rmarkdown,
     testthat,
