@@ -1,5 +1,5 @@
 #' Run jobs in topological order
-#' @param graph TBD
+#' @param graph An `igraph` object with `names` and `code` attributes.
 #' @export
 schedule <- function(graph) {
   code <- V(graph)$code
@@ -8,10 +8,16 @@ schedule <- function(graph) {
   workers <- new.env(parent = emptyenv())
   while (work_remains(queue, workers)) {
     launch_code(queue, workers, code)
-    lapply(names(workers), resolve_worker, graph = graph, queue = queue, workers = workers)
-    Sys.sleep(0.1) # Use backoff function
+    lapply(
+      names(workers),
+      resolve_worker,
+      graph = graph,
+      queue = queue,
+      workers = workers
+    )
+    Sys.sleep(0.1)
   }
-} # rlang::invoke(code)
+}
 
 work_remains <- function(queue, workers) {
   !queue$empty() || length(names(workers))

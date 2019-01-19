@@ -6,5 +6,6 @@
 #' @references <https://github.com/wlandau/workers>
 #' @import rlang
 #' @rawNamespace import(igraph, except = "is_named")
+#' @importFrom future future resolved
 #' @importFrom methods new
 NULL

@@ -3,4 +3,6 @@
 export(schedule)
 import(igraph, except = "is_named")
 import(rlang)
+importFrom(future,future)
+importFrom(future,resolved)
 importFrom(methods,new)

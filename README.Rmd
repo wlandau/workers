@@ -23,4 +23,54 @@ options(tibble.print_min = 5, tibble.print_max = 5)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/wlandau/workers?branch=master&svg=true)](https://ci.appveyor.com/project/wlandau/workers)
 [![Codecov](https://codecov.io/github/wlandau/workers/coverage.svg?branch=master)](https://codecov.io/github/wlandau/workers?branch=master)
 
-# Scheduling in R
+# Purpose
+
+The `workers` package is a platform-agnostic R-focused parallel job scheduler. For computationally-depanding workflows, schedulers are important. Some tasks need to complete before others start (for example, the data munging steps that precede analysis) and `workers` takes advantages of parallel computing opportunities while saving you the trouble of figuring out what needs to run when.
+
+# Installation
+
+```{r install, eval = FALSE}
+devtools::install_github("wlandau/workers")
+```
+
+# Usage
+
+Represent your workflow as a dependency graph with functions as attributes. Each function is a step in the pipeline.
+
+```{r use}
+success <- function() {
+  future::future(list(success = TRUE))
+}
+code <- list(
+  a = function() {
+    x <<- 2
+    success()
+  },
+  b = function() {
+    y <<- x + 1
+    success()
+  },
+  c = function() {
+    z <<- x * 2
+    success()
+  },
+  d = function() {
+    w <<- 3 * y + z
+    success()
+  }
+)
+vertices <- tibble::tibble(name = letters[1:4], code)
+edges <- tibble::tibble(
+  from = c("a", "a", "b", "c"),
+  to = c("b", "c", "d", "d")
+)
+graph <- igraph::graph_from_data_frame(edges, vertices = vertices)
+plot(graph)
+```
+
+Then, run your workflow with `schedule(graph)`.
+
+```{r schedule}
+library(workers)
+schedule(graph)
+```
