@@ -2,7 +2,10 @@
 
 export(schedule)
 import(igraph, except = "is_named")
-import(rlang)
 importFrom(future,future)
 importFrom(future,resolved)
 importFrom(methods,new)
+importFrom(rlang,invoke)
+importFrom(rlang,is_logical)
+importFrom(rlang,is_true)
+importFrom(rlang,set_names)

@@ -13,7 +13,7 @@ Status](https://ci.appveyor.com/api/projects/status/github/wlandau/workers?branc
 # Purpose
 
 The `workers` package is a platform-agnostic R-focused parallel job
-scheduler. For computationally-depanding workflows, schedulers are
+scheduler. For computationally-demanding workflows, schedulers are
 important. Some tasks need to complete before others start (for example,
 the data munging steps that precede analysis) and `workers` takes
 advantages of parallel computing opportunities while saving you the

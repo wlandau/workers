@@ -107,32 +107,7 @@ test_that("diamond graph", {
     b = function() {
       y <<- x + 1
       success()
-    },code <- list(
-      a = function() {
-        x <<- 2
-        success()
-      },
-      b = function() {
-        y <<- x + 1
-        success()
-      },
-      c = function() {
-        z <<- x * 2
-        success()
-      },
-      d = function() {
-        w <<- 3 * y + z
-        success()
-      }
-    )
-
-    vertices <- tibble::tibble(name = letters[1:4], code)
-    edges <- tibble::tibble(
-      from = c("a", "a", "b", "c"),
-      to = c("b", "c", "d", "d")
-    )
-    graph <- igraph::graph_from_data_frame(edges, vertices = vertices)
-
+    },
     c = function() {
       z <<- x * 2
       success()
