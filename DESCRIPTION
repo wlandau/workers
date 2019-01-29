@@ -14,7 +14,7 @@ Authors@R:
              role = "cph"))
 Description: Executes commands in the correct order, leveraging
     the future package to support asynchronous and parallel operation.
-License: MIT + file LICENSE
+License: GPL-3
 URL: https://github.com/wlandau/workers
 BugReports: https://github.com/wlandau/workers/issues
 Imports:
