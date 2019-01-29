@@ -3,6 +3,7 @@
 S3method(resolve,DecoratedFuture)
 S3method(resolved,DecoratedFuture)
 S3method(run,DecoratedFuture)
+export(decorated_future)
 export(schedule)
 import(igraph, except = "is_named")
 importFrom(future,future)
