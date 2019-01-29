@@ -76,13 +76,13 @@ test_that("linear graph, delayed", {
     Sys.sleep(1)
     list(success = TRUE)
   })
+  decorated_future <- decorated_future(delayed_future, post = function() { x <<- x + 2 })
   code <- list(
     a = function() {
-      delayed_future
+      decorated_future
     },
     b = function() {
-      if (future::resolved(delayed_future)) x <<- x + 1
-      success()
+      x <<- x * 3; success()
     }
   )
 
@@ -91,7 +91,7 @@ test_that("linear graph, delayed", {
   graph <- igraph::graph_from_data_frame(edges, vertices = vertices)
 
   schedule(graph)
-  expect_equal(x, 2)
+  expect_equal(x, 9)
 })
 
 test_that("diamond graph", {
