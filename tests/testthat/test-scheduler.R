@@ -78,7 +78,9 @@ test_that("linear graph, delayed", {
   })
   decorated_future <- decorated_future(
     delayed_future,
-    post = function() { x <<- x + 2 }
+    post = function() {
+      x <<- x + 2
+    }
   )
   code <- list(
     a = function() {

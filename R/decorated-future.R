@@ -1,4 +1,4 @@
-decorated_future <- function(inner, pre = function() {}, post = function() {}) {
+decorated_future <- function(inner, pre = function() {}, post = function() {}) { # nolint
   structure(
     list(
       inner = inner,
