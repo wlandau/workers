@@ -76,7 +76,10 @@ test_that("linear graph, delayed", {
     Sys.sleep(1)
     list(success = TRUE)
   })
-  decorated_future <- decorated_future(delayed_future, post = function() { x <<- x + 2 })
+  decorated_future <- decorated_future(
+    delayed_future,
+    post = function() { x <<- x + 2 }
+  )
   code <- list(
     a = function() {
       decorated_future
