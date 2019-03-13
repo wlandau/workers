@@ -46,4 +46,5 @@ artifacts:
 
 environment:
   global:
+    PKGTYPE: binary
     WARNINGS_ARE_ERRORS: 1
